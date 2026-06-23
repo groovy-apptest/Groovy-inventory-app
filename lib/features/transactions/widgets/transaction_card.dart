@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:groovy_inventory/app/theme/app_colors.dart';
+import 'package:groovy_inventory/core/utils/app_date_time.dart';
 import 'package:groovy_inventory/features/transactions/models/transaction_history_model.dart';
-import 'package:intl/intl.dart';
 
 class TransactionCard extends StatelessWidget {
   const TransactionCard({super.key, required this.transaction});
@@ -15,7 +15,9 @@ class TransactionCard extends StatelessWidget {
     final qtyStr = transaction.quantity.toStringAsFixed(
       transaction.quantity.truncateToDouble() == transaction.quantity ? 0 : 2,
     );
-    final dateStr = _formatDate(transaction.transactionDate);
+    final dateStr = AppDateTime.formatTransactionDate(
+      transaction.transactionDate,
+    );
     final createdBy = transaction.createdByName ?? '';
 
     return Container(
@@ -23,7 +25,9 @@ class TransactionCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.card,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.outlineVariant.withValues(alpha: 0.5)),
+        border: Border.all(
+          color: AppColors.outlineVariant.withValues(alpha: 0.5),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +73,10 @@ class TransactionCard extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.outlineVariant.withValues(alpha: 0.25),
                   borderRadius: BorderRadius.circular(8),
@@ -98,7 +105,10 @@ class TransactionCard extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: AppColors.success.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
@@ -117,18 +127,6 @@ class TransactionCard extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  String _formatDate(DateTime date) {
-    final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
-    final yesterday = today.subtract(const Duration(days: 1));
-    final dateOnly = DateTime(date.year, date.month, date.day);
-
-    final time = DateFormat('HH:mm').format(date);
-    if (dateOnly == today) return 'Today · $time';
-    if (dateOnly == yesterday) return 'Yesterday · $time';
-    return '${DateFormat('dd MMM').format(date)} · $time';
   }
 
   _TypeConfig _getTypeConfig(String type) {

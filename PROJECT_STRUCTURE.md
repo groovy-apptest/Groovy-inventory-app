@@ -60,6 +60,7 @@ lib/
 │   │   └── api_response.dart              # Generic ApiResponse<T> matching backend format
 │   ├── widgets/
 │   │   ├── app_bar.dart                   # Shared app bar used across screens
+│   │   ├── app_search_box.dart            # Shared debounced search field
 │   │   └── material_picker_sheet.dart     # Reusable material selector bottom sheet
 │   └── utils/
 │       └── app_logger.dart                # Singleton logger (global `log` variable)
@@ -184,6 +185,7 @@ Tabs: Dashboard, Inventory, Transactions, Profile
 Shared widgets that are reused across features live in `lib/core/widgets/`.
 
 - `app_bar.dart` — app-wide custom app bar
+- `app_search_box.dart` — reusable debounced search field. Use `AppSearchBox(onSearch: ...)` and update the screen-specific Riverpod search provider inside the callback.
 - `material_picker_sheet.dart` — reusable material selector bottom sheet. Use `showMaterialPickerSheet(context)` to open it and receive a `MaterialModel?`.
 
 ---

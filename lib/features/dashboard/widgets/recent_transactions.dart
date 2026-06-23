@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:groovy_inventory/app/theme/app_colors.dart';
+import 'package:groovy_inventory/core/utils/app_date_time.dart';
 import 'package:groovy_inventory/features/dashboard/models/recent_transaction_model.dart';
 import 'package:groovy_inventory/features/dashboard/providers/dashboard_provider.dart';
-import 'package:intl/intl.dart';
 
 class RecentTransactions extends ConsumerWidget {
   const RecentTransactions({super.key});
@@ -73,7 +73,7 @@ class RecentTransactions extends ConsumerWidget {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: transactions.length,
-                separatorBuilder: (_, __) => Divider(
+                separatorBuilder: (_, _) => Divider(
                   height: 2,
                   indent: 0,
                   endIndent: 0,
@@ -99,9 +99,7 @@ class _TransactionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final config = _getTypeConfig(transaction.transactionType);
     final sign = config.isPositive ? '+' : '-';
-    final dateStr = DateFormat(
-      'dd MMM yyyy, hh:mm a',
-    ).format(transaction.transactionDate);
+    final dateStr = AppDateTime.formatDateTime(transaction.transactionDate);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),

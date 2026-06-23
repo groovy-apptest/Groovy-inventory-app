@@ -1,3 +1,5 @@
+import 'package:groovy_inventory/core/utils/app_date_time.dart';
+
 class TransactionModel {
   final String id;
   final String transactionNo;
@@ -33,7 +35,7 @@ class TransactionModel {
       transactionType: json['transactionType'] ?? '',
       quantity: (json['quantity'] as num?)?.toDouble() ?? 0,
       balanceAfter: (json['balanceAfter'] as num?)?.toDouble() ?? 0,
-      transactionDate: DateTime.parse(json['transactionDate']),
+      transactionDate: AppDateTime.parseUtcToIst(json['transactionDate']),
       createdByName: json['createdByName'] ?? '',
     );
   }

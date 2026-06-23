@@ -1,3 +1,5 @@
+import 'package:groovy_inventory/core/utils/app_date_time.dart';
+
 class LowStockItemModel {
   final String id;
   final String materialId;
@@ -43,10 +45,10 @@ class LowStockItemModel {
       availableStock: (json['availableStock'] as num?)?.toDouble() ?? 0,
 
       lastTransactionDate: json['lastTransactionDate'] != null
-          ? DateTime.parse(json['lastTransactionDate'])
+          ? AppDateTime.parseUtcToIst(json['lastTransactionDate'])
           : null,
 
-      lastUpdated: DateTime.parse(json['lastUpdated']),
+      lastUpdated: AppDateTime.parseUtcToIst(json['lastUpdated']),
 
       materialCode: json['materialCode'] ?? '',
 
